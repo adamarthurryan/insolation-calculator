@@ -21853,7 +21853,12 @@
 	              'strong',
 	              null,
 	              this.props.resultsSummary.availableInsolation.toFixed(3),
-	              ' kWh/m^2'
+	              ' kWh/m^',
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'sup' },
+	                '2'
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -21864,7 +21869,12 @@
 	              'strong',
 	              null,
 	              this.props.resultsSummary.capturedInsolation.toFixed(3),
-	              ' kWh/m^2'
+	              ' kWh/m^',
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'sup' },
+	                '2'
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -21992,9 +22002,13 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'h5',
+	          'p',
 	          null,
-	          this.props.formattedDate
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            this.props.formattedDate
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -22002,34 +22016,50 @@
 	          _react2.default.createElement(
 	            'p',
 	            null,
-	            'Available daily insolation: ',
 	            _react2.default.createElement(
-	              'strong',
+	              'span',
 	              null,
-	              this.props.resultsSummary.availableInsolation.toFixed(3),
-	              ' kWh/m^2'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Captured daily insolation: ',
+	              'Available daily insolation: ',
+	              _react2.default.createElement(
+	                'strong',
+	                null,
+	                this.props.resultsSummary.availableInsolation.toFixed(3),
+	                ' kWh/m',
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'sup' },
+	                  '2'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
-	              'strong',
+	              'span',
 	              null,
-	              this.props.resultsSummary.capturedInsolation.toFixed(3),
-	              ' kWh/m^2'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Efficiency: ',
+	              'Captured daily insolation: ',
+	              _react2.default.createElement(
+	                'strong',
+	                null,
+	                this.props.resultsSummary.capturedInsolation.toFixed(3),
+	                ' kWh/m',
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'sup' },
+	                  '2'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
-	              'strong',
+	              'span',
 	              null,
-	              (this.props.resultsSummary.capturedInsolation / this.props.resultsSummary.availableInsolation * 100).toFixed(1),
-	              '%'
+	              'Efficiency: ',
+	              _react2.default.createElement(
+	                'strong',
+	                null,
+	                (this.props.resultsSummary.capturedInsolation / this.props.resultsSummary.availableInsolation * 100).toFixed(1),
+	                '%'
+	              )
 	            )
 	          )
 	        ),
@@ -22153,42 +22183,48 @@
 	
 	var inputFields = function inputFields(props) {
 	  return [{
-	    name: "Latitude (fractional degrees)",
+	    name: "Latitude",
+	    info: "(fractional degrees)",
 	    id: "latitude",
 	    onChange: function onChange(value) {
 	      return props.onChangeLocationInput({ latitude: value });
 	    },
 	    value: props.locationInput.latitude
 	  }, {
-	    name: "Longitude (fractional degrees)",
+	    name: "Longitude",
+	    info: "(fractional degrees)",
 	    id: "longitude",
 	    onChange: function onChange(value) {
 	      return props.onChangeLocationInput({ longitude: value });
 	    },
 	    value: props.locationInput.longitude
 	  }, {
-	    name: "Date (month day)",
+	    name: "Date",
+	    info: "(month day)",
 	    id: "date",
 	    onChange: function onChange(value) {
 	      props.onChangeDateInput(value);
 	    },
 	    value: props.dateInput //props.date
 	  }, {
-	    name: "Panel Orentation (degrees clockwise from south)",
+	    name: "Panel Orentation",
+	    info: "(degrees clockwise from south)",
 	    id: "panelOrientation",
 	    onChange: function onChange(value) {
 	      return props.onChangePanelInput({ orientation: value });
 	    },
 	    value: props.panelInput.orientation
 	  }, {
-	    name: "Panel Inclination (degrees forward from flat)",
+	    name: "Panel Inclination",
+	    info: "(degrees forward from flat)",
 	    id: "panelInclination",
 	    onChange: function onChange(value) {
 	      return props.onChangePanelInput({ inclination: value });
 	    },
 	    value: props.panelInput.inclination
 	  }, {
-	    name: "Panel Tilt (degrees left from flat)",
+	    name: "Panel Tilt",
+	    info: "(degrees left from flat)",
 	    id: "panelTilt",
 	    onChange: function onChange(value) {
 	      return props.onChangePanelInput({ tilt: value });
@@ -22235,24 +22271,37 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
+	        'form',
 	        null,
 	        inputFields(this.props).map(function (field) {
 	          return _react2.default.createElement(
 	            'div',
-	            { key: field.id, className: 'row' },
+	            { className: 'row', key: field.id },
 	            _react2.default.createElement(
-	              'label',
-	              { className: 'one-third column', htmlFor: field.id },
-	              field.name
+	              'div',
+	              { className: 'three columns' },
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: field.id },
+	                field.name
+	              ),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'inputform-fieldinfo' },
+	                field.info
+	              )
 	            ),
-	            _react2.default.createElement('input', {
-	              type: 'text',
-	              id: field.id,
-	              onChange: function onChange(event) {
-	                return field.onChange(event.target.value);
-	              },
-	              value: field.value })
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'six columns' },
+	              _react2.default.createElement('input', {
+	                type: 'text',
+	                id: field.id,
+	                onChange: function onChange(event) {
+	                  return field.onChange(event.target.value);
+	                },
+	                value: field.value })
+	            )
 	          );
 	        })
 	      );

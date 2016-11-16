@@ -1,0 +1,15 @@
+p {
+  margin-bottom: 1rem;
+}
+
+span.sup {
+  position: relative;
+  bottom: 1ex; 
+  font-size: 80%;
+}
+
+.inputform-fieldinfo {
+  position: relative;
+  font-size: 80%;
+  bottom: 2ex;
+}

@@ -20,11 +20,15 @@ const mapDispatchToProps = dispatch => ({
 class Results extends React.Component {
   render() { 
    return <div>
-    <h5>{this.props.formattedDate}</h5>
+    <p><strong>{this.props.formattedDate}</strong></p>
     <div>
-      <p>Available daily insolation: <strong>{this.props.resultsSummary.availableInsolation.toFixed(3)} kWh/m^2</strong></p>
-      <p>Captured daily insolation: <strong>{this.props.resultsSummary.capturedInsolation.toFixed(3)} kWh/m^2</strong></p>
-      <p>Efficiency: <strong>{(this.props.resultsSummary.capturedInsolation/this.props.resultsSummary.availableInsolation*100).toFixed(1)}%</strong></p>
+      <p>
+      <span>Available daily insolation: <strong>{this.props.resultsSummary.availableInsolation.toFixed(3)} kWh/m<span className="sup">2</span></strong></span>
+      <br/>
+      <span>Captured daily insolation: <strong>{this.props.resultsSummary.capturedInsolation.toFixed(3)} kWh/m<span className="sup">2</span></strong></span>
+      <br/>
+      <span>Efficiency: <strong>{(this.props.resultsSummary.capturedInsolation/this.props.resultsSummary.availableInsolation*100).toFixed(1)}%</strong></span>
+      </p>
     </div>
 
       <table className="u-full-width">
