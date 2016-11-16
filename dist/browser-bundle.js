@@ -21819,21 +21819,26 @@
 	        'div',
 	        { className: 'container' },
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Insolation Calculator'
+	          'section',
+	          { className: 'header' },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'title' },
+	            'Insolation Calculator'
+	          )
 	        ),
 	        _react2.default.createElement(
-	          'div',
+	          'nav',
 	          null,
-	          this.props.view == "RESULTS" ? _react2.default.createElement(
+	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.props.onViewInput },
-	            'Modify'
-	          ) : _react2.default.createElement(
+	            { className: 'button-primary', onClick: this.props.onViewInput },
+	            'Parameters'
+	          ),
+	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.props.onViewResults },
-	            'Calculate'
+	            { className: 'button-primary', onClick: this.props.onViewResults },
+	            'Daily Detail'
 	          )
 	        ),
 	        this.props.view == "RESULTS" ? this.props.inputIsValid.valid ? _react2.default.createElement(_Results2.default, null) : _react2.default.createElement(_InvalidResults2.default, null) : _react2.default.createElement(_InputForm2.default, null),

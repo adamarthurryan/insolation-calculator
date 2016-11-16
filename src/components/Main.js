@@ -41,16 +41,18 @@ class Main extends React.Component {
 
   render () { 
     return <div className="container">
-      <h1>Insolation Calculator</h1>
-      <div>
-        {this.props.view =="RESULTS" ?
-          <button onClick={this.props.onViewInput}>Modify</button> :
-          <button onClick={this.props.onViewResults}>Calculate</button>
-        }
-      </div>
+      <section className="header">
+        <h2 className="title">Insolation Calculator</h2>
+      </section>
+
+      <nav >
+          <button className="button-primary" onClick={this.props.onViewInput}>Parameters</button>
+          <button className="button-primary" onClick={this.props.onViewResults}>Daily Detail</button>
+      </nav>
+
       {this.props.view == "RESULTS" ?
         (this.props.inputIsValid.valid ?
-          <Results/> :
+          <Results/> : 
           <InvalidResults/>
         ): 
         <InputForm/> 

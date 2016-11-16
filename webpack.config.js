@@ -16,10 +16,6 @@ module.exports = {
           compact: "false"
         }
       },
-      { test: /\.json$/, loader: 'json-loader' }
     ]
   },
-  node: {
-    fs: 'empty',
-  }
 };
