@@ -61,7 +61,7 @@ export const inputIsValid = createSelector(
   }
 )
 
-export const sunData = createSelector( 
+export const dateSunData = createSelector( 
   [location, date, inputIsValid],
   (location, date, inputIsValid) => {
 
@@ -85,50 +85,103 @@ export const sunData = createSelector(
   }
 )
 
-const INTERVAL_MINUTES = 15
+export const monthlySunData = createSelector (
+  [location],
+  (location) => {
+    if (location.error)
+      return {error: "Invalid location", details: location.error}
 
-export const resultsTable = createSelector (
-  [inputIsValid, location, sunData, panel],
-  (inputIsValid, location, sunData, panel) => {
+    let dates = []
+    let date = moment("December 21, 2016", ["MMMM D, yyyy"])
+    for (let i=0; i<12; i++) {
+      dates.push(date)
+      date = date.clone().add(1, "months")
+    } 
+
+    return dates.map(date => {
+      let {sunrise, sunset, solarNoon} = SunCalc.getTimes(date, location.latitude, location.longitude)
+      return { date, sunrise:moment(sunrise), sunset:moment(sunset), solarNoon:moment(solarNoon)}
+    })
+  }
+)
+
+export const monthlyResultsTable = createSelector (
+  [inputIsValid, location, monthlySunData, panel],
+  (inputIsValid, location, monthlySunData, panel) => {
+    if (! inputIsValid.valid) {
+      return inputIsValid
+    }
+
+    console.log(monthlySunData)
+    return monthlySunData.map(dateSunData => getInsolationTable(location, dateSunData, panel))
+  }
+)
+
+
+export const dateResultsTable = createSelector (
+  [inputIsValid, location, dateSunData, panel],
+  (inputIsValid, location, dateSunData, panel) => {
       
     if (! inputIsValid.valid) {
       return inputIsValid
     }
 
-    let times = []
-    let time = sunData.sunrise
-    while (time.isBefore(sunData.sunset)) {
-      time = time.clone()
-      times.push({time})
-      time.add(INTERVAL_MINUTES, "minutes")
-    } 
-
-    //insolation results in kW/m^2
-
-    return times.map( ({time}) => { 
-      let sunPosition = SunCalc.getPosition(time, location.latitude, location.longitude)
-      return {
-        time, 
-        sunPosition,
-        groundInsolation:insolation(sunPosition, {orientation:0, inclination:0, tilt:0}),
-        panelInsolation:insolation(sunPosition, panel)
-      }
-    })
+    return getInsolationTable(location, dateSunData, panel)
   }
 )
 
-export const resultsSummary = createSelector (
-  [resultsTable],
-  (resultsTable) => {
-    let capturedInsolation = resultsTable.map(({panelInsolation})=>panelInsolation).reduce((a,b) => a+b, 0)/60*INTERVAL_MINUTES
-    let availableInsolation = resultsTable.length/60*INTERVAL_MINUTES * SOLAR_CONSTANT
+const INTERVAL_MINUTES = 15
+function getInsolationTable (location, sunData, panel) {
+  let times = []
+  let time = sunData.sunrise
+  while (time.isBefore(sunData.sunset)) {
+    time = time.clone()
+    times.push({time})
+    time.add(INTERVAL_MINUTES, "minutes")
+  } 
+
+  //insolation results in kW/m^2
+
+  return times.map( ({time}) => { 
+    let sunPosition = SunCalc.getPosition(time, location.latitude, location.longitude)
+    return {
+      time, 
+      sunPosition,
+      groundInsolation:insolation(sunPosition, {orientation:0, inclination:0, tilt:0}),
+      panelInsolation:insolation(sunPosition, panel)
+    }
+  })
+} 
+
+function calculateInsolationTableSummary (insolationTable) {
+    let capturedInsolation = insolationTable.map(({panelInsolation})=>panelInsolation).reduce((a,b) => a+b, 0)/60*INTERVAL_MINUTES
+    let availableInsolation = insolationTable.length/60*INTERVAL_MINUTES * SOLAR_CONSTANT
 
     //results in kWh/m^2
 
-    return {capturedInsolation, availableInsolation}
+    return {capturedInsolation, availableInsolation}  
+}
+
+export const dateResultsSummary = createSelector (
+  [dateResultsTable],
+  (dateResultsTable) => {
+    return calculateInsolationTableSummary(dateResultsTable)
   }
 )
 
+export const monthlyResultsSummary = createSelector (
+  [monthlyResultsTable],
+  (monthlyResultsTable) => {
+    let monthSummaries = monthlyResultsTable.map(insolationTable => Object.assign({}, calculateInsolationTableSummary(insolationTable), {date: insolationTable[0].time}))
+
+    let yearSummary = {
+      capturedInsolation: monthSummaries.map(({capturedInsolation}) => capturedInsolation).reduce((a,b)=>a+b, 0)*365/12,  
+      availableInsolation: monthSummaries.map(({availableInsolation}) => availableInsolation).reduce((a,b)=>a+b, 0)*365/12  
+    }
+
+    return {monthSummaries, yearSummary}
+  }
+)
 
 export const formattedDate = createSelector(
   [date],

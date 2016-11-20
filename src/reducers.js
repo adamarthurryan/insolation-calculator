@@ -30,11 +30,11 @@ export function dateInput (state, action) {
 
 export function view (state, action) {
   switch (action.type) {
-    case 'VIEW_INPUT':
-      return 'INPUT'
-    case 'VIEW_RESULTS':
-      return 'RESULTS'
+    case 'VIEW_DATE':
+      return 'DATE'
+    case 'VIEW_MONTHLY':
+      return 'MONTHLY'
     default:
-      return state || 'INPUT'
+      return state || 'MONTHLY'
   }
 }
