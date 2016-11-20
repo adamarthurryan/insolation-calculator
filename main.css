@@ -11,5 +11,6 @@ span.sup {
 .inputform-fieldinfo {
   position: relative;
   font-size: 80%;
-  bottom: 2ex;
+  top: -2ex;
+  margin-bottom: -2ex;
 }
