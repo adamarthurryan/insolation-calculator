@@ -21898,7 +21898,6 @@
 	}(_react2.default.Component);
 	
 	function renderDate(props) {
-	  console.log("yo");
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -21932,7 +21931,7 @@
 	      _react2.default.createElement(
 	        'strong',
 	        null,
-	        'Monthly Data'
+	        'Yearly Data'
 	      )
 	    ),
 	    _react2.default.createElement(_MonthlyResultsSummary2.default, null),
@@ -38065,7 +38064,6 @@
 	  _createClass(MonthlyResultsTable, [{
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props.monthlyResultsSummary);
 	      return _react2.default.createElement(
 	        'table',
 	        { className: 'u-full-width' },
