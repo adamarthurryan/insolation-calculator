@@ -17,7 +17,6 @@ const mapDispatchToProps = dispatch => ({
 
 class MonthlyResultsTable extends React.Component {
   render() { 
-    console.log(this.props.monthlyResultsSummary)
    return (
     <table className="u-full-width">
         <thead>

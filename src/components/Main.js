@@ -78,7 +78,6 @@ class Main extends React.Component {
 
 
 function renderDate(props) {
-  console.log("yo")
   return <div>
     <DateInputForm/> 
     <div>
@@ -91,7 +90,7 @@ function renderDate(props) {
 
 function renderMonthly(props) {
   return <div>
-      <p><strong>Monthly Data</strong></p>
+      <p><strong>Yearly Data</strong></p>
       <MonthlyResultsSummary/>
       <MonthlyResultsTable/>
     </div>
