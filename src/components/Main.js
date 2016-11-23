@@ -5,13 +5,18 @@ import {connect} from 'react-redux'
 import * as Actions from '../actions'
 
 import InvalidResults from './InvalidResults'
+
+import DateResultsChart from './DateResultsChart'
+import MonthlyResultsChart from './MonthlyResultsChart'
+
 import DateResultsTable from './DateResultsTable'
 import DateResultsSummary from './DateResultsSummary'
 import MonthlyResultsTable from './MonthlyResultsTable'
 import MonthlyResultsSummary from './MonthlyResultsSummary'
-import DateInputForm from './DateInputForm'
-import LocationInputForm from './LocationInputForm'
-import PanelInputForm from './PanelInputForm'
+
+import DateInputForm from './input/DateInputForm'
+import LocationInputForm from './input/LocationInputForm'
+import PanelInputForm from './input/PanelInputForm'
 
 import * as Selectors from '../selectors'
 
@@ -68,10 +73,6 @@ class Main extends React.Component {
         </div>
       </div>
 
-      
-      <div>
-        <pre>sunData: <output>{JSON.stringify(this.props.sunData, null, 2)}</output></pre>
-      </div>
     </div> 
   } 
 }
@@ -83,7 +84,7 @@ function renderDate(props) {
     <div>
       <p><strong>Data for {props.formattedDate}</strong></p>
       <DateResultsSummary/>
-      <DateResultsTable/>
+      <DateResultsChart/>
     </div>
   </div>
 }
@@ -92,7 +93,7 @@ function renderMonthly(props) {
   return <div>
       <p><strong>Yearly Data</strong></p>
       <MonthlyResultsSummary/>
-      <MonthlyResultsTable/>
+      <MonthlyResultsChart/>
     </div>
 }
 

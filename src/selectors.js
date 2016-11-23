@@ -112,7 +112,6 @@ export const monthlyResultsTable = createSelector (
       return inputIsValid
     }
 
-    console.log(monthlySunData)
     return monthlySunData.map(dateSunData => getInsolationTable(location, dateSunData, panel))
   }
 )

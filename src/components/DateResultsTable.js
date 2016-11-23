@@ -31,7 +31,7 @@ class DateResultsTable extends React.Component {
         <tbody>         
           {this.props.dateResultsTable.map( ({time, sunPosition, groundInsolation, panelInsolation}) => 
               <tr>
-                <td>{time.format("hh:mm")}</td>
+                <td>{time.format("HH:mm")}</td>
                 <td>{(sunPosition.azimuth/Math.PI*180).toFixed(2)}</td>
                 <td>{(sunPosition.altitude/Math.PI*180).toFixed(2)}</td>
                 <td>{(panelInsolation.toFixed(3))}</td>
