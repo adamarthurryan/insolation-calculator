@@ -8,7 +8,7 @@ import * as localStore from './localStore'
 
 import * as reducers from './reducers'
 
-import Main from './components/Main'
+import Main from './components/Main'  
 
 
 //create the redux store

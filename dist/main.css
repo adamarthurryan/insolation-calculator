@@ -1,3 +1,13 @@
+html, body {
+  height: 100%;
+}
+
+#masthead .header {
+  font-size: 4em;
+
+}
+
+
 p {
   margin-bottom: 1rem;
 }
@@ -9,8 +19,5 @@ span.sup {
 }
 
 .inputform-fieldinfo {
-  position: relative;
   font-size: 80%;
-  top: -2ex;
-  margin-bottom: -2ex;
 }

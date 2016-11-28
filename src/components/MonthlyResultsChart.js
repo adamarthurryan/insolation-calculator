@@ -28,7 +28,7 @@ class MonthlyResultsChart extends React.Component {
       data: renderChartData(this.props.monthlyResultsSummary),
 
       options: {
-        maintainAspectRatio: false
+        maintainAspectRatio: true
       }
     })
     this.chart = chart
@@ -55,15 +55,15 @@ function renderChartData(monthlyResultsSummary) {
     datasets: [ {
       label: "Captured Insolation",
       data: monthlyResultsSummary.monthSummaries.map(({capturedInsolation})=>capturedInsolation),
-      backgroundColor: "rgba(128,128,255,.5)", 
+      backgroundColor: "rgba(64,64,255,.5)", 
       //borderWidth: 5,
       //borderColor: "rgba(128, 128, 255, .75)"
     }, {
       label: "Available Insolation",
       data: monthlyResultsSummary.monthSummaries.map(({availableInsolation})=>availableInsolation),
-      backgroundColor: "rgba(255,255,128,.5)", 
-      //borderWidth: 5,
-      //borderColor: "rgba(255,255,128, .75)"
+      backgroundColor: "rgba(255,255,128,.75)", 
+      borderWidth: 2,
+      borderColor: "rgba(255,255,64, .75)"
     } ]
   }    
 }

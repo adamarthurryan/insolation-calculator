@@ -2,6 +2,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import {Menu, Header, Segment, Grid, Rail, Container} from 'semantic-ui-react'
+
 import * as Actions from '../actions'
 
 import InvalidResults from './InvalidResults'
@@ -22,6 +24,7 @@ import * as Selectors from '../selectors'
 
 const mapStateToProps = (state) => ({
   view: state.view, 
+  formattedDate: Selectors.formattedDate(state),
   sunData: Selectors.dateSunData(state),
   inputIsValid: Selectors.inputIsValid(state),
   resultsSummary: Selectors.dateResultsSummary(state)
@@ -50,28 +53,38 @@ class Main extends React.Component {
   }
 
   render () { 
-    return <div className="container">
-      <section className="header">
-        <h2 className="title">Insolation Calculator</h2>
-      </section>
-
-      <nav >
-          <button className="button-primary" onClick={this.props.onViewMonthly}>Monthly Info</button>
-          <button className="button-primary" onClick={this.props.onViewDate}>Date Detail</button>
-      </nav>
+    return <div>
+      
+      <Segment vertical padded textAlign="center" as="header" id='masthead'>
+        <Header>Insolation Calculator</Header>
+      </Segment>
 
 
-      <div className="row">
-        <div className="three columns">
-          <LocationInputForm/> 
-          <PanelInputForm/> 
-        </div>
-        <div className="nine columns">
+      <Segment vertical padded>
+            <Grid centered columns={2}>
+              <Grid.Column>
+                <Menu tabular attached='top'>
+                  <Menu.Item active={this.props.view=="MONTHLY"} onClick={this.props.onViewMonthly}>Monthly Info</Menu.Item>
+                  <Menu.Item active={this.props.view=="DATE"} onClick={this.props.onViewDate}>Date Detail</Menu.Item>
+                </Menu>
+                <Segment attached='bottom'>
+                  {this.props.view == "DATE" ? renderDate(this.props) : renderMonthly(this.props)}
+                
+                  <Rail close position='left'>
+                    <Segment textAlign="left">
+                      <LocationInputForm/> 
+                      <PanelInputForm/> 
+                    </Segment>
+                  </Rail>
+                </Segment>
+              </Grid.Column>
+            </Grid>
+      </Segment>
 
-          {this.props.view == "DATE" ? renderDate(this.props) : renderMonthly(this.props)}
-          
-        </div>
-      </div>
+      <Segment vertical padded textAlign="center" as="footer">
+          <p><a href="http://adamarthurryan.com">Adam Brown</a> | This website is <a href="https://github.com/adamarthurryan/insolation-calculator">open source</a>.</p>
+      </Segment>
+
 
     </div> 
   } 
@@ -81,17 +94,15 @@ class Main extends React.Component {
 function renderDate(props) {
   return <div>
     <DateInputForm/> 
-    <div>
-      <p><strong>Data for {props.formattedDate}</strong></p>
-      <DateResultsSummary/>
-      <DateResultsChart/>
-    </div>
+    <Header>Data for {props.formattedDate}</Header>
+    <DateResultsSummary/>
+    <DateResultsChart/>
   </div>
 }
 
 function renderMonthly(props) {
   return <div>
-      <p><strong>Yearly Data</strong></p>
+      <Header>Yearly Data</Header>
       <MonthlyResultsSummary/>
       <MonthlyResultsChart/>
     </div>

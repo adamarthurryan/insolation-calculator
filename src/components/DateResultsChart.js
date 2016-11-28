@@ -20,11 +20,15 @@ class DateResultsChart extends React.Component {
 
   componentDidMount() {
     var chart = new Chart(this.canvasElement, {
-      type: 'horizontalBar',
+      type: 'bar',
       data: renderChartData(this.props.dateResultsTable),
 
       options: {
-        maintainAspectRatio: false
+        maintainAspectRatio:true, 
+        scales: {
+          xAxes: [{}],
+          yAxes: [{display:false, ticks: {autoSkip:true}}]
+        }
       }
     })
     this.chart = chart
@@ -40,9 +44,9 @@ class DateResultsChart extends React.Component {
   }
 
   render() { 
-    return <canvas ref={element => this.canvasElement = element}></canvas>
+    return <canvas ref={element => this.canvasElement = element}></canvas> 
   }
-
+   
 }
 
 function renderChartData(dateResultsTable) {
@@ -51,7 +55,8 @@ function renderChartData(dateResultsTable) {
     datasets: [ {
       label: "Panel Insolation",
       data: dateResultsTable.map(({panelInsolation})=>panelInsolation),
-      backgroundColor: "rgba(128,128,255,.5)", 
+      backgroundColor: "rgba(64,64,255,.5)", 
+      
       //borderWidth: 5,
       //borderColor: "rgba(128, 128, 255, .75)"
     }, 
